@@ -1,0 +1,29 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure("2") do |config|
+  config.vm.define "tower" do |tower|
+   tower.vm.box = "ansible/tower"
+   tower.vm.hostname = "tower"
+   tower.vm.network "private_network", ip: "192.168.33.10"
+   tower.vm.network "forwarded_port", guest: 80, host: 8080
+    tower.vm.network "forwarded_port", guest: 8050, host: 8050
+   end
+
+   config.vm.define "web" do |web|
+     web.vm.box = "nrel/CentOS-6.5-x86_64"
+ 	   web.vm.hostname = "web"
+ 	   web.vm.network "private_network", ip: "192.168.33.20"
+ 	   web.vm.network "forwarded_port", guest: 80, host: 8020
+   end
+   config.vm.define "web7" do |web|
+     web.vm.box = "centos/7"
+ 	   web.vm.hostname = "web7"
+ 	   web.vm.network "private_network", ip: "192.168.33.30"
+ 	   web.vm.network "forwarded_port", guest: 80, host: 8030
+   end
+ end

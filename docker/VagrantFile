@@ -1,0 +1,22 @@
+Vagrant.configure("2") do |config|
+config.vm.define "j" do |j|
+  j.vm.provider "docker" do |d|
+    d.name = "jenkins"
+    d.image = "jenkins/jenkins:lts"
+    #d.build_dir = "."
+    #d.dockerfile = "Dockerfile"
+    d.ports = ["8080:8080"]
+    d.volumes = ["/Users/matt/docker/jenkins/data/jenkins:/var/jenkins_home"]
+    #d.vagrant_vagrantfile = "DockerVMVagrantFile"
+  end
+ end
+  config.vm.define "app" do |app|
+  app.vm.provider "docker" do |m|
+    m.image = "mbhein/mydocker:p3.v1"
+    m.name = "mydocker"
+    m.pull = true
+    m.ports = ["8090:80"]
+    #m.username = "m"
+  end
+  end
+end
